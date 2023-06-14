@@ -3,6 +3,14 @@ body {
   background-color: #011F3F;
 }
 
+h1{
+  line-height: 5rem;
+}
+
+h1>span{
+  color: white;
+}
+
 #level-title {
   font-family: 'Press Start 2P', cursive;
   font-size: 3rem;

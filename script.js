@@ -56,53 +56,72 @@ function clickChecker(clickValue){
   }
 }
 
+function whenWrong(){
+  playSound('wrong');
+  textChanger('h1','Game over please refresh');
+}
+
+function driverClass(className){
+  if (className === 'green') {
+    if(clickChecker(1)){
+      playSound(className);
+    }else {
+      whenWrong();
+    }
+  }else if (className === 'red') {
+    if(clickChecker(2)){
+      playSound(className);
+    }else {
+      whenWrong();
+    }
+  }else if (className === 'yellow') {
+    if(clickChecker(3)){
+      playSound(className);
+    }else {
+      whenWrong();
+    }
+  }else if (className === 'blue') {
+    if(clickChecker(4)){
+      playSound(className);
+    }else {
+      whenWrong();
+    }
+  }
+}
+
 function onBtnClicked(className){
   $('.'+className).on('click',function(){
 
       if(buttonPause || !gameRunning){
         return;
       }
-      if (className === 'green') {
-        if(clickChecker(1)){
-          playSound(className);
-        }else {
-          playSound('wrong');
-          textChanger('h1','Game over please refresh');
-        }
-      }else if (className === 'red') {
-        if(clickChecker(2)){
-          playSound(className);
-        }else {
-          playSound('wrong');
-          textChanger('h1','Game over please refresh');
-        }
-      }else if (className === 'yellow') {
-        if(clickChecker(3)){
-          playSound(className);
-        }else {
-          playSound('wrong');
-          textChanger('h1','Game over please refresh');
-        }
-      }else if (className === 'blue') {
-        if(clickChecker(4)){
-          playSound(className);
-        }else {
-          playSound('wrong');
-          textChanger('h1','Game over please refresh');
-        }
-      }
+      driverClass(className);
   });
 }
 
-//////////////////////////
-$('body').on('keydown',function(event){
-  if((event.key === 's' || event.key === 'S') && !gameRunning){
-    textChanger('h1','Game start');
-    gameRunning = true;
-    randomGenerator();
-  }
-})
+function startGame(){
+  $('body').on('keydown',function(event){
+    if((event.key === 's' || event.key === 'S') && !gameRunning){
+      textChanger('h1','Game start');
+      gameRunning = true;
+      randomGenerator();
+    }
+  })
 
-for(var i=0; i<colors.length; i++){
-  onBtnClicked(colors[i]);
+  for(var i=0; i<colors.length; i++){
+    onBtnClicked(colors[i]);
+  }
+
+  $('.start').on('click',function(){
+    if(!gameRunning){
+      textChanger('h1','Game start');
+      gameRunning = true;
+      randomGenerator();
+    }
+  });
 }
+
+
+//////////////////////////
+
+startGame();
